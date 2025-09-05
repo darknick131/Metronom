@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">Metronom</string>
+    <string name="tempo">Tempo</string>
+    <string name="bpm">BPM</string>
+    <string name="start">Start</string>
+    <string name="stop">Stop</string>
+    <string name="latency">Latency</string>
+    <string name="latency_ms">ms</string>
+    <string name="instrument">Instrument</string>
+    <string name="guitar">Guitar</string>
+    <string name="bass">Bass</string>
+    <string name="drums">Drums</string>
+    <string name="speakers">Speakers</string>
+    <string name="headphones">Headphones</string>
+    <string name="latency_preset">Latency Preset</string>
+    <string name="custom">Custom</string>
+    <string name="tempo_range">Tempo range: 40-200 BPM</string>
+    <string name="latency_range">Latency range: 0-500ms</string>
+</resources>

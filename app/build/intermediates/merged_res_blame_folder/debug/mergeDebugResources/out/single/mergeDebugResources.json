@@ -1,0 +1,122 @@
+[
+    {
+        "merged": "com.metronom.app-debug-48:/drawable_ic_launcher_foreground.xml.flat",
+        "source": "com.metronom.app-main-50:/drawable/ic_launcher_foreground.xml"
+    },
+    {
+        "merged": "com.metronom.app-debug-48:/layout_dialog_song_edit.xml.flat",
+        "source": "com.metronom.app-main-50:/layout/dialog_song_edit.xml"
+    },
+    {
+        "merged": "com.metronom.app-debug-48:/drawable_ic_add.xml.flat",
+        "source": "com.metronom.app-main-50:/drawable/ic_add.xml"
+    },
+    {
+        "merged": "com.metronom.app-debug-48:/drawable_song_icon_background.xml.flat",
+        "source": "com.metronom.app-main-50:/drawable/song_icon_background.xml"
+    },
+    {
+        "merged": "com.metronom.app-debug-48:/drawable_metronome_indicator.xml.flat",
+        "source": "com.metronom.app-main-50:/drawable/metronome_indicator.xml"
+    },
+    {
+        "merged": "com.metronom.app-debug-48:/drawable_beat_counter_background.xml.flat",
+        "source": "com.metronom.app-main-50:/drawable/beat_counter_background.xml"
+    },
+    {
+        "merged": "com.metronom.app-debug-48:/layout_activity_song_list.xml.flat",
+        "source": "com.metronom.app-main-50:/layout/activity_song_list.xml"
+    },
+    {
+        "merged": "com.metronom.app-debug-48:/drawable_metronome_outer_ring.xml.flat",
+        "source": "com.metronom.app-main-50:/drawable/metronome_outer_ring.xml"
+    },
+    {
+        "merged": "com.metronom.app-debug-48:/drawable_navigation_background.xml.flat",
+        "source": "com.metronom.app-main-50:/drawable/navigation_background.xml"
+    },
+    {
+        "merged": "com.metronom.app-debug-48:/drawable_ic_launcher_background.xml.flat",
+        "source": "com.metronom.app-main-50:/drawable/ic_launcher_background.xml"
+    },
+    {
+        "merged": "com.metronom.app-debug-48:/drawable_ic_edit.xml.flat",
+        "source": "com.metronom.app-main-50:/drawable/ic_edit.xml"
+    },
+    {
+        "merged": "com.metronom.app-debug-48:/mipmap-anydpi-v26_ic_launcher.xml.flat",
+        "source": "com.metronom.app-main-50:/mipmap-anydpi-v26/ic_launcher.xml"
+    },
+    {
+        "merged": "com.metronom.app-debug-48:/drawable_beat_counter_professional.xml.flat",
+        "source": "com.metronom.app-main-50:/drawable/beat_counter_professional.xml"
+    },
+    {
+        "merged": "com.metronom.app-debug-48:/drawable_ic_play.xml.flat",
+        "source": "com.metronom.app-main-50:/drawable/ic_play.xml"
+    },
+    {
+        "merged": "com.metronom.app-debug-48:/drawable_gradient_background.xml.flat",
+        "source": "com.metronom.app-main-50:/drawable/gradient_background.xml"
+    },
+    {
+        "merged": "com.metronom.app-debug-48:/layout_item_song.xml.flat",
+        "source": "com.metronom.app-main-50:/layout/item_song.xml"
+    },
+    {
+        "merged": "com.metronom.app-debug-48:/xml_backup_rules.xml.flat",
+        "source": "com.metronom.app-main-50:/xml/backup_rules.xml"
+    },
+    {
+        "merged": "com.metronom.app-debug-48:/drawable_ic_clear.xml.flat",
+        "source": "com.metronom.app-main-50:/drawable/ic_clear.xml"
+    },
+    {
+        "merged": "com.metronom.app-debug-48:/drawable_ic_stop.xml.flat",
+        "source": "com.metronom.app-main-50:/drawable/ic_stop.xml"
+    },
+    {
+        "merged": "com.metronom.app-debug-48:/drawable_ic_arrow_back.xml.flat",
+        "source": "com.metronom.app-main-50:/drawable/ic_arrow_back.xml"
+    },
+    {
+        "merged": "com.metronom.app-debug-48:/drawable_ic_delete.xml.flat",
+        "source": "com.metronom.app-main-50:/drawable/ic_delete.xml"
+    },
+    {
+        "merged": "com.metronom.app-debug-48:/xml_data_extraction_rules.xml.flat",
+        "source": "com.metronom.app-main-50:/xml/data_extraction_rules.xml"
+    },
+    {
+        "merged": "com.metronom.app-debug-48:/drawable_ic_upload.xml.flat",
+        "source": "com.metronom.app-main-50:/drawable/ic_upload.xml"
+    },
+    {
+        "merged": "com.metronom.app-debug-48:/drawable_stats_card_background.xml.flat",
+        "source": "com.metronom.app-main-50:/drawable/stats_card_background.xml"
+    },
+    {
+        "merged": "com.metronom.app-debug-48:/drawable_dialog_background.xml.flat",
+        "source": "com.metronom.app-main-50:/drawable/dialog_background.xml"
+    },
+    {
+        "merged": "com.metronom.app-debug-48:/layout_activity_main.xml.flat",
+        "source": "com.metronom.app-main-50:/layout/activity_main.xml"
+    },
+    {
+        "merged": "com.metronom.app-debug-48:/mipmap-anydpi-v26_ic_launcher_round.xml.flat",
+        "source": "com.metronom.app-main-50:/mipmap-anydpi-v26/ic_launcher_round.xml"
+    },
+    {
+        "merged": "com.metronom.app-debug-48:/layout_item_song_modern.xml.flat",
+        "source": "com.metronom.app-main-50:/layout/item_song_modern.xml"
+    },
+    {
+        "merged": "com.metronom.app-debug-48:/drawable_ic_music_note.xml.flat",
+        "source": "com.metronom.app-main-50:/drawable/ic_music_note.xml"
+    },
+    {
+        "merged": "com.metronom.app-debug-48:/drawable_metronome_indicator_professional.xml.flat",
+        "source": "com.metronom.app-main-50:/drawable/metronome_indicator_professional.xml"
+    }
+]
