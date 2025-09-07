@@ -131,12 +131,11 @@
         android:id="@+id/fabAddSong"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
         android:layout_margin="24dp"
         android:backgroundTint="@color/blue_accent"
         android:src="@drawable/ic_add"
         app:fabSize="normal"
-        app:layout_anchor="@id/recyclerViewSongs"
-        app:layout_anchorGravity="bottom|end"
         app:tint="@color/white" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

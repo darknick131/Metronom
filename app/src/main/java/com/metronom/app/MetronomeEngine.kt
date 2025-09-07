@@ -160,7 +160,6 @@ class MetronomeEngine(private val context: Context? = null) {
                 // Generate and play click sound
                 generateClickSound()
                 
-                // Update beat counter
                 currentBeat++
                 if (currentBeat > timeSignature.numerator) {
                     currentBeat = 1

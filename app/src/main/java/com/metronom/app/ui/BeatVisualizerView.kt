@@ -15,7 +15,6 @@ class BeatVisualizerView @JvmOverloads constructor(
     defStyleAttr: Int = 0
 ) : View(context, attrs, defStyleAttr) {
 
-    // Mechanical metronome paints
     private val metronomeBodyPaint = Paint(Paint.ANTI_ALIAS_FLAG)
     private val pendulumArmPaint = Paint(Paint.ANTI_ALIAS_FLAG)
     private val pendulumWeightPaint = Paint(Paint.ANTI_ALIAS_FLAG)
@@ -39,7 +38,6 @@ class BeatVisualizerView @JvmOverloads constructor(
     private var pendulumAnimator: ObjectAnimator? = null
     private var backgroundAnimator: ValueAnimator? = null
     
-    // Enhanced striking effect - More dramatic colors
     private val strobeColors = intArrayOf(
         Color.BLACK,
         Color.argb(200, 255, 255, 255) // Brighter white with higher opacity
@@ -174,7 +172,6 @@ class BeatVisualizerView @JvmOverloads constructor(
         val beatInterval = (60000.0 / bpm).toLong() // Convert BPM to milliseconds per beat
         
         // Create perfectly synchronized pendulum swing animation
-        // Swing angle optimized for visibility (-60 to +60 degrees) - more dramatic
         pendulumAnimator = ObjectAnimator.ofFloat(this, "pendulumAngle", -60f, 60f)
         pendulumAnimator?.apply {
             duration = beatInterval / 2 // Half beat for swing, then reverse
@@ -241,7 +238,6 @@ class BeatVisualizerView @JvmOverloads constructor(
         
         currentBeat = (currentBeat + 1) % 4
         
-        // Enhanced striking effect - More dramatic flash
         currentStrobeColor = if (currentStrobeColor == Color.BLACK) {
             Color.argb(255, 255, 255, 255) // Pure white flash
         } else {
@@ -253,13 +249,11 @@ class BeatVisualizerView @JvmOverloads constructor(
             Color.BLACK
         }
         
-        // Update background paint immediately
         backgroundPaint.color = currentStrobeColor
         
         // Change entire screen background IMMEDIATELY - no delays
         changeEntireScreenBackground(currentStrobeColor)
         
-        // Enhanced pendulum visibility during flash
         if (currentStrobeColor == Color.BLACK) {
             // During black flash, make pendulum extra bright
             pendulumArmPaint.color = Color.parseColor("#FFFF00FF") // Bright magenta

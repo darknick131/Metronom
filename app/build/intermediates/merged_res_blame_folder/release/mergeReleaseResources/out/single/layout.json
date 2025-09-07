@@ -1,0 +1,22 @@
+[
+    {
+        "merged": "com.metronom.app-mergeReleaseResources-47:/layout/item_song.xml",
+        "source": "com.metronom.app-main-49:/layout/item_song.xml"
+    },
+    {
+        "merged": "com.metronom.app-mergeReleaseResources-47:/layout/dialog_song_edit.xml",
+        "source": "com.metronom.app-main-49:/layout/dialog_song_edit.xml"
+    },
+    {
+        "merged": "com.metronom.app-mergeReleaseResources-47:/layout/item_song_modern.xml",
+        "source": "com.metronom.app-main-49:/layout/item_song_modern.xml"
+    },
+    {
+        "merged": "com.metronom.app-mergeReleaseResources-47:/layout/activity_song_list.xml",
+        "source": "com.metronom.app-main-49:/layout/activity_song_list.xml"
+    },
+    {
+        "merged": "com.metronom.app-mergeReleaseResources-47:/layout/activity_main.xml",
+        "source": "com.metronom.app-main-49:/layout/activity_main.xml"
+    }
+]

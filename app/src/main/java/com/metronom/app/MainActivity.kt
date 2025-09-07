@@ -50,7 +50,6 @@ class MainActivity : AppCompatActivity() {
             val tempo = value.toInt()
             binding.tempoValue.text = tempo.toString()
             metronomeEngine.setTempo(tempo)
-            // Update visual animation to match new tempo
             binding.beatVisualizer.updateTempo(tempo)
         }
         
