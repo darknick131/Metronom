@@ -1,0 +1,26 @@
+# Gradle build outputs and caches
+.gradle/
+build/
+app/build/
+
+# Local machine config (contains SDK path — never commit)
+local.properties
+
+# Android Studio / IntelliJ project files
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# Generated APKs and bundles
+*.apk
+*.aab
+
+# Signing keystores
+*.jks
+*.keystore
+*.ks
+
+# OS metadata
+.DS_Store
+Thumbs.db

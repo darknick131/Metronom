@@ -1,397 +1,251 @@
-# 🎵 Metronome App - Comprehensive Feature Guide
+# Metronom
 
-## 📱 **App Overview**
-Your metronome app is a professional music beat visualizer with advanced features including:
-- **Flipped upside-down pendulum** (purple/blue colors)
-- **Perfect BPM accuracy** (nanosecond precision timing)
-- **Dramatic striking effect** (black/white full-screen flashes)
-- **Dynamic color changes** during flashes
-- **Professional audio engine** with multiple instruments
-- **Song library** with save/load functionality
-- **Precise synchronization** between audio and visuals
+**A precision metronome for Android built for live band rehearsal — high-visibility full-screen strobe effect, nanosecond-accurate beat timing, and per-song BPM/latency presets.**
+
+![Platform](https://img.shields.io/badge/platform-Android%207.0%2B-brightgreen)
+![Language](https://img.shields.io/badge/language-Kotlin-7F52FF)
+![Build System](https://img.shields.io/badge/build-Gradle%208-02303A)
+![Min SDK](https://img.shields.io/badge/minSdk-24-informational)
+![Target SDK](https://img.shields.io/badge/targetSdk-35-informational)
 
 ---
 
-## 🎯 **Main Features & Locations**
+## Screenshot
 
-### **1. Beat Visualizer (Pendulum Animation)**
-**Location**: `app/src/main/java/com/metronom/app/ui/BeatVisualizerView.kt`
-
-**What it does**: 
-- Displays a flipped upside-down pendulum that swings in sync with the BPM
-- Changes colors during screen flashes for visibility
-- Handles full-screen strobe effects
-
-**Key Customization Points**:
-```kotlin
-// Pendulum Colors (Lines 50-60)
-private val pendulumArmPaint = Paint().apply {
-    color = Color.parseColor("#FF8A2BE2") // Purple arm
-    strokeWidth = 8f
-}
-
-private val pendulumWeightPaint = Paint().apply {
-    color = Color.parseColor("#FF4169E1") // Blue weight
-}
-
-// Strobe Colors (Lines 65-70)
-private val strobeColors = arrayOf(
-    Color.BLACK,                    // Black flash
-    Color.argb(255, 255, 255, 255) // White flash
-)
-
-// Pendulum Swing Angle (Line 200)
-val animator = ObjectAnimator.ofFloat(this, "pendulumAngle", -60f, 60f)
-```
-
-**How to Customize**:
-- **Change pendulum colors**: Modify `pendulumArmPaint.color` and `pendulumWeightPaint.color`
-- **Adjust swing angle**: Change the values in `ObjectAnimator.ofFloat(this, "pendulumAngle", -60f, 60f)`
-- **Modify strobe colors**: Update the `strobeColors` array
-- **Change pendulum size**: Adjust `pendulumLength` calculation in `onSizeChanged()`
-
-### **2. Audio Engine**
-**Location**: `app/src/main/java/com/metronom/app/MetronomeEngine.kt`
-
-**What it does**:
-- Generates precise audio clicks with nanosecond timing
-- Supports multiple instruments (Guitar, Bass, Drums, Custom)
-- Handles latency compensation
-- Manages custom sound files
-
-**Key Customization Points**:
-```kotlin
-// BPM Range (Line 57)
-fun setTempo(newTempo: Int) {
-    _tempo = newTempo.coerceIn(40, 200) // Change range here
-}
-
-// Audio Quality (Lines 45-50)
-private val sampleRate = 44100 // Higher = better quality, more CPU
-private val bufferSize = AudioTrack.getMinBufferSize(...)
-
-// Click Duration (Line 53)
-private val clickDuration = 0.1f // seconds - how long each click lasts
-
-// Instrument Frequencies (Lines 189-194)
-val frequency = when (instrument) {
-    Instrument.GUITAR -> 1000f  // Hz
-    Instrument.BASS -> 800f     // Hz  
-    Instrument.DRUMS -> 1200f   // Hz
-    Instrument.CUSTOM -> 1000f
-}
-```
-
-**How to Customize**:
-- **Change BPM range**: Modify `coerceIn(40, 200)` in `setTempo()`
-- **Adjust audio quality**: Change `sampleRate` (44100, 48000, 96000)
-- **Modify click duration**: Update `clickDuration` value
-- **Change instrument sounds**: Modify frequency values or sound generation functions
-- **Add new instruments**: Add to `Instrument` enum and `when` statements
-
-### **3. Main UI Controls**
-**Location**: `app/src/main/java/com/metronom/app/MainActivity.kt`
-
-**What it does**:
-- Manages all user interactions
-- Coordinates between audio engine and visualizer
-- Handles song loading and custom sound uploads
-
-**Key Customization Points**:
-```kotlin
-// Latency Presets (Lines 31-32)
-private val speakersLatency = 50L  // milliseconds
-private val headphonesLatency = 20L // milliseconds
-
-// Tempo Slider Range (Lines 48-55)
-binding.tempoSlider.addOnChangeListener { _, value, _ ->
-    val tempo = value.toInt()
-    // Range is set in XML: android:valueFrom="40" android:valueTo="200"
-}
-```
-
-**How to Customize**:
-- **Change default latency**: Modify `speakersLatency` and `headphonesLatency`
-- **Adjust tempo range**: Update XML in `activity_main.xml` lines 152-154
-- **Add new sound instruments**: Add buttons and handlers in `setupUI()`
-
-### **4. Song Library System**
-**Location**: `app/src/main/java/com/metronom/app/SimpleSongManager.kt` & `SongListActivity.kt`
-
-**What it does**:
-- Saves/loads songs with BPM and latency settings
-- Provides CRUD operations for song management
-- Persists data using SharedPreferences
-
-**Key Customization Points**:
-```kotlin
-// Song Data Structure (Lines 56-60)
-data class Song(
-    val name: String,
-    val bpm: Int,
-    val latency: Int = 0
-)
-
-// BPM Validation (Lines 138-143)
-val bpm = try {
-    bpmText.toInt().coerceIn(40, 200) // Change range here
-} catch (e: NumberFormatException) {
-    // Error handling
-}
-```
-
-**How to Customize**:
-- **Add new song properties**: Extend the `Song` data class
-- **Change BPM validation**: Update `coerceIn(40, 200)` values
-- **Modify storage method**: Replace SharedPreferences with Room database
-- **Add song categories**: Add a `category` field to `Song`
-
-### **5. UI Layout & Styling**
-**Location**: `app/src/main/res/layout/activity_main.xml`
-
-**What it does**:
-- Defines the main app layout
-- Sets up all UI components and their positioning
-- Handles responsive design
-
-**Key Customization Points**:
-```xml
-<!-- Tempo Slider Range (Lines 152-154) -->
-<com.google.android.material.slider.Slider
-    android:valueFrom="40"
-    android:valueTo="200"
-    android:value="120" />
-
-<!-- Beat Visualizer Size (Lines 95-102) -->
-<com.metronom.app.ui.BeatVisualizerView
-    android:layout_height="200dp" />
-
-<!-- Color Scheme (Lines 8, 16, 26) -->
-android:background="@color/black"
-app:backgroundTint="@color/blue_accent"
-app:backgroundTint="@color/purple_accent"
-```
-
-**How to Customize**:
-- **Change tempo range**: Update `valueFrom` and `valueTo` in tempo slider
-- **Adjust visualizer size**: Modify `layout_height` of `BeatVisualizerView`
-- **Update color scheme**: Change color references throughout the layout
-- **Add new UI elements**: Add new views and position them with constraints
+> _Add a screenshot or screen recording here._
 
 ---
 
-## 🎨 **Visual Customization Guide**
+## Overview
 
-### **Colors & Themes**
-**Location**: `app/src/main/res/values/colors.xml`
+Metronom is a native Android metronome designed for band practice situations where standard apps fall short. It generates click sounds directly as PCM audio via `AudioTrack` in streaming mode to keep playback latency as low as possible, and tracks beat intervals using `System.nanoTime()` to prevent tempo drift over long sessions.
 
-```xml
-<!-- Main Colors -->
-<color name="black">#FF000000</color>
-<color name="white">#FFFFFFFF</color>
+The visualizer is a full-screen strobe: on every beat the entire screen background flips between black and white, paired with an animated pendulum. The strobe is intentionally aggressive so it remains visible from across a rehearsal room, even in ambient light.
 
-<!-- Accent Colors -->
-<color name="blue_accent">#FF2196F3</color>
-<color name="purple_accent">#FF9C27B0</color>
-<color name="red_accent">#FFF44336</color>
-
-<!-- Transparency Levels -->
-<color name="white_alpha_10">#1AFFFFFF</color>
-<color name="white_alpha_30">#4DFFFFFF</color>
-<color name="white_alpha_50">#80FFFFFF</color>
-```
-
-**How to Change**:
-- **App background**: Change `@color/black` in `activity_main.xml`
-- **Button colors**: Update `@color/blue_accent` and `@color/purple_accent`
-- **Text colors**: Modify `@color/white` references
-- **Add new colors**: Add entries to `colors.xml` and reference them
-
-### **Pendulum Visual Effects**
-**Location**: `BeatVisualizerView.kt` lines 200-250
-
-```kotlin
-// Flash Colors During Animation
-private fun onBeat() {
-    currentStrobeColor = if (currentStrobeColor == strobeColors[0]) strobeColors[1] else strobeColors[0]
-    
-    // Dynamic pendulum colors during flash
-    if (currentStrobeColor == Color.BLACK) {
-        pendulumArmPaint.color = Color.parseColor("#FFFF00FF") // Magenta
-        pendulumWeightPaint.color = Color.parseColor("#FF00FFFF") // Cyan
-    } else {
-        pendulumArmPaint.color = Color.parseColor("#FF0000FF") // Blue
-        pendulumWeightPaint.color = Color.parseColor("#FF8A2BE2") // Blue Violet
-    }
-}
-```
-
-**How to Customize**:
-- **Change flash colors**: Modify `strobeColors` array
-- **Adjust pendulum colors**: Update color values in `onBeat()`
-- **Add glow effects**: Modify `armGlowPaint`, `weightGlowPaint` properties
-- **Change animation speed**: Adjust `duration` in `startBeatAnimation()`
+A song library lets you save a name, BPM, and latency offset per song so you can load the exact right settings before starting a take or a section of a setlist, without manually re-entering numbers each time.
 
 ---
 
-## ⚙️ **Technical Customization Guide**
+## Key Features
 
-### **Audio Quality Settings**
-**Location**: `MetronomeEngine.kt` lines 45-50
+- **Nanosecond-precision timing** — the beat loop runs on a dedicated IO coroutine and tracks the next beat time in nanoseconds (`System.nanoTime()`), accumulating rather than resetting each beat to prevent drift.
+- **Full-screen strobe on beat** — `BeatVisualizerView` changes the Activity window background and root layout to black or white on every beat callback, not just a small indicator. Colors alternate each beat.
+- **Animated pendulum** — custom `Canvas`-drawn pendulum swings ±60° in sync with the tempo using `ObjectAnimator` and `LinearInterpolator`.
+- **Beat accent** — the first beat of each measure plays at 1.5× amplitude.
+- **Three synthesized click timbres:**
+  - Click (Guitar) — 1000 Hz sine, fast exponential decay (`exp(-15t)`)
+  - Beep (Bass) — 800 Hz sine, slower decay (`exp(-8t)`)
+  - Tick (Drums) — 1200 Hz sine + white noise, very fast decay (`exp(-25t)`)
+- **Custom audio file** — upload any audio file from device storage; it gets copied to the app cache and played as raw bytes through `AudioTrack`.
+- **Latency compensation** — manual slider (0–200 ms) plus quick presets: Speakers (50 ms) and Earbuds (20 ms), applied as a fixed offset in the timing loop.
+- **Time signatures** — engine supports 4/4, 3/4, and 2/4 (beat counter and accent reset correctly per measure).
+- **Song library** — save song presets (name, BPM, optional latency offset); load, edit, or delete them from a RecyclerView list. Persisted synchronously to `SharedPreferences` as a JSON array.
+- **Beat counter** — on-screen number that updates on every beat callback from the audio thread, synchronized with audio output rather than with a UI timer.
 
-```kotlin
-private val sampleRate = 44100 // CD Quality
-// Options: 22050 (Low), 44100 (CD), 48000 (Studio), 96000 (High-Res)
+---
+
+## System Architecture & Data Flow
+
+The app is two Activities. There are no Fragments, no ViewModels, and no Repository layer — logic lives directly in the Activity and engine classes.
+
+```
+User input (slider / button)
+        │
+        ▼
+  MainActivity
+  (ViewBinding, UI state)
+        │
+        ├──► MetronomeEngine.setTempo() / setInstrument() / setLatency()
+        │
+        └──► MetronomeEngine.start()
+                    │
+                    ▼
+         Coroutine on Dispatchers.IO
+         System.nanoTime() timing loop
+                    │
+                    ▼
+         generateClickSound()
+         AudioTrack.write(pcmBytes)     ← raw PCM to hardware
+                    │
+                    ▼
+         BeatCallback.onBeat(beatNumber)
+                    │
+                    ▼ (runOnUiThread)
+         ┌──────────────────────────────┐
+         │  beatCounter.text = beat     │
+         │  BeatVisualizerView.onBeat() │
+         │    → window background flip  │
+         │    → invalidate()            │
+         └──────────────────────────────┘
+
+ObjectAnimator (UI thread, independent)
+  pendulumAngle -60° ↔ +60°
+  duration = beatInterval / 2
+  LinearInterpolator
 ```
 
-### **Timing Precision**
-**Location**: `MetronomeEngine.kt` lines 146-175
+**Song Library flow:**
 
-```kotlin
-// Nanosecond precision timing
-val intervalNs = (60000000000.0 / _tempo).toLong()
-var nextBeatTime = System.nanoTime()
-
-// Accumulative timing to prevent drift
-nextBeatTime += intervalNs
 ```
-
-### **Memory Management**
-**Location**: `MainActivity.kt` lines 275-280
-
-```kotlin
-override fun onDestroy() {
-    super.onDestroy()
-    if (isPlaying) {
-        stopMetronome() // Clean up resources
-    }
-}
+MainActivity ──startActivityForResult──► SongListActivity
+                                               │
+                                    SimpleSongManager (SharedPreferences)
+                                    getSongs() / saveSong() / deleteSong()
+                                               │
+                                    ◄──setResult(RESULT_SONG_LOADED, intent)──
+                                               │
+                               ◄─── onActivityResult ───
+                               loadSongIntoMetronome(song)
+                               tempoSlider.value = song.bpm
+                               setLatencyPreset(song.latency)
 ```
 
 ---
 
-## 🚀 **Advanced Customization Examples**
+## Project Structure
 
-### **1. Add New Instrument**
-```kotlin
-// In MetronomeEngine.kt
-enum class Instrument {
-    GUITAR, BASS, DRUMS, CUSTOM, PIANO // Add new instrument
-}
-
-// Add frequency
-val frequency = when (instrument) {
-    Instrument.GUITAR -> 1000f
-    Instrument.BASS -> 800f
-    Instrument.DRUMS -> 1200f
-    Instrument.PIANO -> 1500f // Add new frequency
-    Instrument.CUSTOM -> 1000f
-}
-
-// Add sound generation
-private fun generatePianoClick(time: Float, frequency: Float, isAccent: Boolean): Float {
-    val envelope = exp(-time * 12f).toFloat()
-    val wave = sin(2 * PI * frequency * time).toFloat()
-    val baseAmplitude = if (isAccent) 0.5f else 0.4f
-    return envelope * wave * baseAmplitude
-}
 ```
-
-### **2. Change Pendulum Style**
-```kotlin
-// In BeatVisualizerView.kt
-private fun drawSimplePendulum(canvas: Canvas) {
-    // Change from simple pendulum to metronome body
-    // Add visual metronome case, tempo markings, etc.
-}
-```
-
-### **3. Add Visual Effects**
-```kotlin
-// Add particle effects, trails, or other visual enhancements
-private fun drawParticleEffects(canvas: Canvas) {
-    // Custom drawing code for additional effects
-}
-```
-
-### **4. Modify Strobe Patterns**
-```kotlin
-// In BeatVisualizerView.kt
-private val strobeColors = arrayOf(
-    Color.BLACK,
-    Color.WHITE,
-    Color.parseColor("#FF00FF00"), // Add green
-    Color.parseColor("#FFFF0000")  // Add red
-)
+Metronom/
+├── app/
+│   ├── src/main/
+│   │   ├── java/com/metronom/app/
+│   │   │   ├── MainActivity.kt          # Entry point; UI wiring, button handlers, Activity lifecycle
+│   │   │   ├── MetronomeEngine.kt       # Audio engine: PCM generation, nanoTime timing loop, BeatCallback
+│   │   │   ├── SimpleSongManager.kt     # SharedPreferences read/write; Song data class
+│   │   │   ├── SongListActivity.kt      # Song library screen; RecyclerView adapter; add/edit/delete dialogs
+│   │   │   └── ui/
+│   │   │       └── BeatVisualizerView.kt  # Custom View: Canvas pendulum drawing + strobe effect
+│   │   └── res/
+│   │       ├── layout/                  # activity_main, activity_song_list, dialog_song_edit, item_song*
+│   │       ├── drawable/                # Vector icons + shape backgrounds (beat counter, gradient, etc.)
+│   │       ├── values/                  # colors.xml (dark theme palette), strings.xml, themes.xml
+│   │       └── mipmap-*/               # App icons in 5 density buckets
+│   └── build.gradle                    # Module-level: dependencies, SDK versions, ViewBinding flag
+├── gradle/wrapper/                      # Gradle wrapper JAR + properties
+├── build.gradle                         # Top-level: AGP + Kotlin plugin versions
+├── settings.gradle                      # Project name, module includes, repository config
+├── gradle.properties                    # JVM args, AndroidX and R class flags
+├── gradlew / gradlew.bat                # Gradle wrapper entry points
+└── local.properties                     # Local SDK path — not committed
 ```
 
 ---
 
-## 📁 **File Structure Reference**
+## Tech Stack
 
-```
-app/src/main/
-├── java/com/metronom/app/
-│   ├── MainActivity.kt              # Main UI logic
-│   ├── MetronomeEngine.kt           # Audio engine
-│   ├── SimpleSongManager.kt         # Song data management
-│   ├── SongListActivity.kt          # Song library UI
-│   └── ui/
-│       └── BeatVisualizerView.kt    # Pendulum & strobe effects
-├── res/
-│   ├── layout/
-│   │   ├── activity_main.xml        # Main layout
-│   │   ├── activity_song_list.xml   # Song library layout
-│   │   ├── item_song.xml           # Song item layout
-│   │   └── dialog_song_edit.xml    # Song edit dialog
-│   ├── values/
-│   │   ├── colors.xml              # Color definitions
-│   │   └── strings.xml             # Text strings
-│   └── drawable/                   # Icons and backgrounds
-└── AndroidManifest.xml             # App configuration
-```
+| Layer | Technology | Why |
+|---|---|---|
+| Language | Kotlin 1.9.10 | Coroutines enable a clean IO-thread timing loop without thread management boilerplate |
+| Platform | Android SDK (min 24 / target 35) | Native Android; `AudioTrack` is not available cross-platform |
+| Audio output | `AudioTrack` (MODE_STREAM, PCM 16-bit, 44100 Hz mono) | Direct buffer writes bypass MediaPlayer overhead; lowest achievable playback latency |
+| Beat timing | `System.nanoTime()` + `Dispatchers.IO` coroutine | Nanosecond clock avoids drift; IO dispatcher keeps audio off the main thread |
+| UI binding | ViewBinding | Compile-time null-safe view references; no reflection at runtime |
+| Layout | ConstraintLayout + Material Design 3 (1.11.0) | Sliders, MaterialButton, FAB, dialogs from the Material component library |
+| Graphics | `Canvas` API (custom `View`) | Pendulum drawn entirely in software; no external graphics library needed |
+| Animation | `ObjectAnimator` / `ValueAnimator` | Property animation for pendulum swing; synchronized to tempo interval |
+| Persistence | `SharedPreferences` + `org.json` | Lightweight; songs are serialized as a JSON array string |
+| Build | AGP 8.7.1 / Gradle 8 | Standard Android build toolchain |
+| Coroutines | kotlinx-coroutines-android 1.7.3 | Async timing loop and UI dispatch |
 
 ---
 
-## 🔧 **Build & Deployment**
+## Getting Started
 
-### **Generate APK**
+### Prerequisites
+
+- **Android Studio** Koala (2024.1) or newer
+- **JDK 8** or higher (project targets `VERSION_1_8`)
+- Android device or emulator running **Android 7.0 (API 24)** or higher
+- USB debugging enabled if using a physical device
+
+### Install and Run
+
 ```bash
-# Debug APK (for testing)
-.\gradlew.bat assembleDebug
+# 1. Clone
+git clone https://github.com/darknick131/Metronom.git
+cd Metronom
 
-# Release APK (for distribution)
-.\gradlew.bat assembleRelease
+# 2. Build a debug APK
+./gradlew assembleDebug
+
+# 3. Install on a connected device
+./gradlew installDebug
 ```
 
-### **APK Location**
-```
-app/build/outputs/apk/debug/app-debug.apk
-```
+Or open the project in Android Studio and press **Run ▶**.
+
+The app requests `RECORD_AUDIO`, `MODIFY_AUDIO_SETTINGS`, and `WAKE_LOCK` permissions at install time. `WAKE_LOCK` prevents the screen and CPU from sleeping during a long practice session.
 
 ---
 
-## 🎵 **Feature Summary**
+## Usage
 
-| Feature | Location | Customization Level |
-|---------|----------|-------------------|
-| **Pendulum Animation** | `BeatVisualizerView.kt` | High - Colors, size, swing angle |
-| **Strobe Effects** | `BeatVisualizerView.kt` | High - Colors, patterns, timing |
-| **Audio Engine** | `MetronomeEngine.kt` | High - Quality, instruments, timing |
-| **UI Layout** | `activity_main.xml` | Medium - Layout, colors, sizing |
-| **Song Library** | `SongListActivity.kt` | Medium - Features, validation |
-| **Color Scheme** | `colors.xml` | Low - Simple color changes |
-| **Text/Strings** | `strings.xml` | Low - Text content only |
+### Basic metronome
+
+1. Drag the **BPM slider** to set tempo (40–200 BPM). The large number updates in real time.
+2. Choose a click sound: **Click**, **Beep**, or **Tick**.
+3. Tap **Start**. The pendulum begins swinging and the screen strobes on every beat.
+4. Tap **Stop** to halt playback and reset the visualizer to black.
+
+### Latency compensation
+
+If the strobe feels out of sync with what you hear through your monitoring setup:
+
+- Tap **Speakers** (sets 50 ms) or **Earbuds** (sets 20 ms) for a quick preset.
+- Use the latency slider to fine-tune between 0–200 ms.
+
+The offset shifts the timing loop's next-beat target forward by the configured amount.
+
+### Custom click sound
+
+1. Tap **Upload** and select any audio file from your device.
+2. The file is copied to the app cache and played through `AudioTrack` as raw bytes in place of the synthesized click.
+3. Tap **Clear** to return to the synthesized sounds.
+
+### Song library
+
+1. Tap **Song Library** to open the list.
+2. Tap **+** to add a new entry (name, BPM, and optional latency offset).
+3. Tap **Load** on any row to apply that song's settings to the main screen and return.
+4. Tap **Edit** or **Delete** to modify or remove an entry.
 
 ---
 
-## 💡 **Pro Tips**
+## Roadmap
 
-1. **For Visual Changes**: Start with `BeatVisualizerView.kt` and `colors.xml`
-2. **For Audio Changes**: Modify `MetronomeEngine.kt` audio parameters
-3. **For UI Changes**: Update `activity_main.xml` layout
-4. **For New Features**: Add to `MainActivity.kt` and create supporting files
-5. **Always test**: Build and test changes incrementally
-6. **Backup**: Keep copies of working versions before major changes
+The following are visible in the codebase as commented-out code or implemented in the engine but without UI:
 
-This guide covers all the major features and customization points in your metronome app. Each section includes specific file locations, code examples, and step-by-step instructions for modifications. 🎵⚡️
+- **Room database** — `androidx.room` dependencies are present but commented out in `app/build.gradle`. `SimpleSongManager` currently uses `SharedPreferences`.
+- **Additional time signatures** — `MetronomeEngine.TimeSignature` defines 3/4 and 2/4 (with correct beat counting and accent), but the main screen has no UI control to switch between them. Only 4/4 is reachable by default.
+
+---
+
+## Assumptions to Verify
+
+The following claims appear in the previous README but are **not supported by the current code** — verify before reinstating them:
+
+| Claim | Reality found in code |
+|---|---|
+| Piano as a fourth instrument | `MetronomeEngine.Instrument` has `GUITAR`, `BASS`, `DRUMS`, `CUSTOM` — no Piano |
+| MVVM / Clean architecture | No `ViewModel` or Repository classes exist; logic is in the two Activities directly |
+| Physics-based pendulum simulation | `ObjectAnimator` with `LinearInterpolator`, fixed ±60° — no physics equations |
+| +/- BPM buttons | `activity_main.xml` has only a slider; no increment/decrement buttons |
+| Latency range 0–500 ms | UI slider `valueTo="200"`; engine accepts up to 500 ms but UI caps at 200 ms |
+
+---
+
+## Contributing
+
+Pull requests are welcome. Open an issue first for anything beyond a small bug fix.
+
+---
+
+## License
+
+No license file is present in the repository. Add one before accepting contributions.
+
+---
+
+## Contact
+
+- GitHub: [@darknick131](https://github.com/darknick131)
